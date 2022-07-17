@@ -32,12 +32,13 @@ if (ports.Length == 1)
 if (ports.Length > 1)
 {
     Console.Write("Enter the port num : ");
-    int res = int.Parse(Console.ReadLine());
+    int res = 1;
     port.PortName = ports[res];
     port.BaudRate = 9600;
     port.Open();
 }
-while (true)
+bool test = true;
+while (test)
 {
     float? memusd = 0;
     float? cpu = 0;
@@ -74,13 +75,13 @@ while (true)
         }
         foreach (ISensor sensor in hardware.Sensors)
         {
-
+            //Console.WriteLine(sensor.Name + " / " + sensor.Value);
             if (sensor.Name == "CPU Total")
             {
                 cpu = sensor.Value;
                 Console.WriteLine("Cpu Usage : " + sensor.Value);
             }
-            if (sensor.Name == "D3D 3D")
+            if (sensor.Name == "GPU Core")
             {
                 gpu = sensor.Value;
                 Console.WriteLine("Gpu Usage : " + sensor.Value);
@@ -95,6 +96,7 @@ while (true)
                 Console.WriteLine("Memory Used : " + memusd + "GB / " + memtot + "GB");
             }
         }
+        //test = false;
     }
     float cpuRo = cpu ?? 0;
     float gpuRo = gpu ?? 0;
@@ -106,13 +108,13 @@ while (true)
         string cpuR = "";
         for (int i=1; i<cpuS.Length; i++)
         {
-            cpuR = cpuR + cpuS[i];
+            cpuR = cpuR +" "+ cpuS[i];
         }
         string[] gpuS = gpuN.Split(" ");
         string gpuR = "";
         for (int i = 1; i < gpuS.Length; i++)
         {
-            gpuR = gpuR + gpuS[i];
+            gpuR = gpuR + gpuS[i] + " ";
         }
         port.Write(Math.Round(cpuRo, 2) + "*" + Math.Round(gpuRo, 2) + "#" + Math.Round(memusdRo, 2) + "!" + Math.Round(memtotRo, 2) + "_" + cpuR + "{" + gpuR + "}");
     }
