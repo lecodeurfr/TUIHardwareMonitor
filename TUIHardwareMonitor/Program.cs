@@ -45,7 +45,7 @@ if(os[0] == "Microsoft")
     test = true;
 }else if(os[0] == "Darwin")
 {
-    Console.WriteLine("You're on mac os come back later on others updates");
+    Console.WriteLine("You're on mac os, go complaining you at Apple");
 }
 
 while (test)
