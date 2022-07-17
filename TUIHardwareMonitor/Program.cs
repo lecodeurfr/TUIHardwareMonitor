@@ -37,9 +37,20 @@ if (ports.Length > 1)
     port.BaudRate = 9600;
     port.Open();
 }
-bool test = true;
+bool test = false;
+string osVersion = System.Runtime.InteropServices.RuntimeInformation.OSDescription;
+string[] os = osVersion.Split(' ');
+if(os[0] == "Microsoft")
+{
+    test = true;
+}else if(os[0] == "Darwin")
+{
+    Console.WriteLine("You're on mac os come back later on others updates");
+}
+
 while (test)
 {
+    
     float? memusd = 0;
     float? cpu = 0;
     float? gpu = 0;
